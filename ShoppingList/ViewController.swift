@@ -21,9 +21,19 @@ class ViewController: UITableViewController {
         // Set Nav Bar Title
         title = "Shopping List"
         // Add Item Button
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptNewItem))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptNewItem))
         // Clear List Button
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(clearList))
+        let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(clearList))
+        navigationItem.rightBarButtonItems = [addButton, deleteButton]
+        // Share Button
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
+    }
+    
+    @objc func share() {
+        let joinedList = shoppingList.joined(separator: "\n")
+        let avc = UIActivityViewController(activityItems: [joinedList], applicationActivities: nil)
+        avc.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
+        present(avc, animated: true)
     }
     
     @objc func clearList() {
