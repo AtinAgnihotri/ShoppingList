@@ -22,6 +22,13 @@ class ViewController: UITableViewController {
         title = "Shopping List"
         // Add Item Button
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptNewItem))
+        // Clear List Button
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(clearList))
+    }
+    
+    @objc func clearList() {
+        shoppingList.removeAll(keepingCapacity: true)
+        tableView.reloadData()
     }
     
     @objc func promptNewItem() {
